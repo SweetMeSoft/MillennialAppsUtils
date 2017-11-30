@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">utils</string>
+    <string name="accept">Aceptar</string>
+    <string name="cancel">Cancelar</string>
+    <string name="loading">Cargando</string>
+    <string name="wrong_password">Tu contraseña es incorrecta.</string>
+    <string name="cannot_login">No podemos ingresar en este momento. Por favor, inténtalo mas tarde.</string>
+    <string name="cannot_connect_api_google">No podemos acceder a Google.</string>
+</resources>
