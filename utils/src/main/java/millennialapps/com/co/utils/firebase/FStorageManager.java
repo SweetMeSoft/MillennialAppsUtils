@@ -1,4 +1,4 @@
-package millennialapps.com.co.utils.tools;
+package millennialapps.com.co.utils.firebase;
 
 import android.content.Context;
 import android.content.ContextWrapper;

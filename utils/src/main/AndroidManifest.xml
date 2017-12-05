@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="millennialapps.com.co.utils" >
+    package="co.com.millennialapps.utils" >
 
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 </manifest>

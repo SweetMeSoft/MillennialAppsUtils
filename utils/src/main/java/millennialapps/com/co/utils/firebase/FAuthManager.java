@@ -1,4 +1,4 @@
-package millennialapps.com.co.utils.tools;
+package millennialapps.com.co.utils.firebase;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -28,6 +28,8 @@ import com.google.firebase.database.ValueEventListener;
 import millennialapps.com.co.utils.R;
 import millennialapps.com.co.utils.models.User;
 import millennialapps.com.co.utils.sqlite.SQLiteConstants;
+import millennialapps.com.co.utils.tools.DialogHandler;
+import millennialapps.com.co.utils.tools.Preferences;
 
 /**
  * Created by erick on 1/7/2017.

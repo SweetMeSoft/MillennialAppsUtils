@@ -36,8 +36,10 @@ public class SearchBarHandler implements SearchView.OnSuggestionListener {
     private int idDrawer;
     private int colorPrimaryDark;
 
-    public SearchBarHandler(Activity activity, Menu menu, int idAction, int idHint, LinkedList<Pair<String, String>> list) {
+    public SearchBarHandler(Activity activity, Menu menu, int idAction, int idHint, LinkedList<Pair<String, String>> list, int idDrawer, int colorPrimaryDark) {
         this.activity = activity;
+        this.idDrawer = idDrawer;
+        this.colorPrimaryDark = colorPrimaryDark;
         if (list == null) {
             suggestionList = new LinkedList<>();
         } else {

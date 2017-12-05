@@ -1,4 +1,4 @@
-package millennialapps.com.co.utils.tools;
+package millennialapps.com.co.utils.firebase;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
