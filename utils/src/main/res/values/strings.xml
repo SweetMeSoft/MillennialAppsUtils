@@ -6,4 +6,5 @@
     <string name="wrong_password">Tu contraseña es incorrecta.</string>
     <string name="cannot_login">No podemos ingresar en este momento. Por favor, inténtalo mas tarde.</string>
     <string name="cannot_connect_api_google">No podemos acceder a Google.</string>
+    <string name="database_cancelled">La conexión a la base de datos ha tenido un error. Perdónanos por fa e intenta otra vez.</string>
 </resources>

@@ -17,6 +17,10 @@ android {
         }
     }
 
+    compileOptions {
+        targetCompatibility 1.8
+        sourceCompatibility 1.8
+    }
 }
 
 dependencies {
@@ -29,15 +33,15 @@ dependencies {
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
     implementation 'com.android.support:support-vector-drawable:26.1.0'
 
-    implementation 'com.google.android.gms:play-services-maps:11.4.2'
-    implementation 'com.google.android.gms:play-services-auth:11.4.2'
-    implementation 'com.google.android.gms:play-services-location:11.4.2'
-    implementation 'com.google.android.gms:play-services-places:11.4.2'
+    implementation 'com.google.android.gms:play-services-maps:11.6.2'
+    implementation 'com.google.android.gms:play-services-auth:11.6.2'
+    implementation 'com.google.android.gms:play-services-location:11.6.2'
+    implementation 'com.google.android.gms:play-services-places:11.6.2'
 
-    implementation 'com.google.firebase:firebase-database:11.4.2'
-    implementation 'com.google.firebase:firebase-storage:11.4.2'
-    implementation 'com.google.firebase:firebase-auth:11.4.2'
-    implementation 'com.google.firebase:firebase-crash:11.4.2'
+    implementation 'com.google.firebase:firebase-database:11.6.2'
+    implementation 'com.google.firebase:firebase-storage:11.6.2'
+    implementation 'com.google.firebase:firebase-auth:11.6.2'
+    implementation 'com.google.firebase:firebase-crash:11.6.2'
 
     implementation 'com.google.maps.android:android-maps-utils:0.4.3'
     implementation 'com.google.code.gson:gson:2.8.0'
@@ -48,11 +52,11 @@ dependencies {
 apply plugin: 'com.android.library'
 
 ext {
-    bintrayRepo = 'MillennialAppsUtils'
-    bintrayName = 'MillennialAppsUtils'
+    bintrayRepo = 'MillennialApps'
+    bintrayName = 'Utils'
 
     publishedGroupId = 'co.com.millennialapps'
-    libraryName = 'MillennialAppsUtils'
+    libraryName = 'MillennialApps'
     artifact = 'utils'
 
     libraryDescription = 'A widget to load WebView as an Overlay.'
@@ -60,7 +64,7 @@ ext {
     siteUrl = 'https://github.com/erickvelasco11/MillennialAppsUtils'
     gitUrl = 'https://github.com/erickvelasco11/MillennialAppsUtils.git'
 
-    libraryVersion = '0.23.995'
+    libraryVersion = '0.24.462'
 
     developerId = 'erickvelasco11'
     developerName = 'Erick Velasco'
