@@ -18,7 +18,7 @@ import co.com.millennialapps.utils.common.IReceiveDB;
  */
 
 public class FDatabaseManager {
-    
+
     private static FDatabaseManager fDatabaseManager;
     private DatabaseReference mDatabase;
 
