@@ -42,6 +42,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-storage:11.6.2'
     implementation 'com.google.firebase:firebase-auth:11.6.2'
     implementation 'com.google.firebase:firebase-crash:11.6.2'
+    implementation 'com.google.firebase:firebase-invites:11.6.2'
 
     implementation 'com.google.maps.android:android-maps-utils:0.4.3'
     implementation 'com.google.code.gson:gson:2.8.0'
@@ -59,12 +60,12 @@ ext {
     libraryName = 'MillennialApps'
     artifact = 'utils'
 
-    libraryDescription = 'A widget to load WebView as an Overlay.'
+    libraryDescription = 'Library of Utils for MillennialApps'
 
     siteUrl = 'https://github.com/erickvelasco11/MillennialAppsUtils'
     gitUrl = 'https://github.com/erickvelasco11/MillennialAppsUtils.git'
 
-    libraryVersion = '0.24.462'
+    libraryVersion = '0.24.901'
 
     developerId = 'erickvelasco11'
     developerName = 'Erick Velasco'

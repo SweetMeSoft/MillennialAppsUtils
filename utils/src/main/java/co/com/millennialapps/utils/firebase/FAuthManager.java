@@ -21,15 +21,11 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.ValueEventListener;
 
 import co.com.millennialapps.utils.R;
-import co.com.millennialapps.utils.common.IReceiveDB;
 import co.com.millennialapps.utils.models.User;
 import co.com.millennialapps.utils.sqlite.SQLiteConstants;
-import co.com.millennialapps.utils.tools.DialogHandler;
+import co.com.millennialapps.utils.tools.DialogManager;
 import co.com.millennialapps.utils.tools.Preferences;
 
 /**
@@ -76,7 +72,7 @@ public class FAuthManager {
     }
 
     public void firebaseAuthWithPassword(final Activity activity, final String email, final String password) {
-        DialogHandler.showLoadingDialog(activity, R.string.loading, "Ingresando", true, false);
+        DialogManager.showLoadingDialog(activity, R.string.loading, "Ingresando", true, false);
         firebaseAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(activity, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -91,7 +87,7 @@ public class FAuthManager {
                                             if (task.isSuccessful()) {
                                                 checkAndSaveUser(activity, email);
                                             } else {
-                                                DialogHandler.dismissLoadingDialog();
+                                                DialogManager.dismissLoadingDialog();
                                                 Snackbar.make(activity.getCurrentFocus(),
                                                         R.string.wrong_password,
                                                         Snackbar.LENGTH_LONG).show();
@@ -122,7 +118,7 @@ public class FAuthManager {
                 user = dataSnapshot.getValue(User.class);
             }
             Preferences.saveObjectAsJson(activity, Preferences.PF_USER, Preferences.K_USER, user);
-            DialogHandler.dismissLoadingDialog();
+            DialogManager.dismissLoadingDialog();
         }, activity.getWindow().getDecorView(), SQLiteConstants.DB_USERS);
     }
 

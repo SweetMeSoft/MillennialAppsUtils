@@ -15,7 +15,7 @@ import co.com.millennialapps.utils.R;
  * Created by erick on 22/6/2017.
  */
 
-public class DialogHandler {
+public class DialogManager {
 
     private static ProgressDialog loadingDialog;
 
