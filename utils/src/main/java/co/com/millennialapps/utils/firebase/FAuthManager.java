@@ -64,7 +64,7 @@ public class FAuthManager {
                             }*/
                         } else {
                             Snackbar.make(activity.getWindow().getDecorView().getRootView(),
-                                    R.string.cannot_login,
+                                    R.string.msg_cannot_login,
                                     Snackbar.LENGTH_LONG).show();
                         }
                     }
@@ -89,7 +89,7 @@ public class FAuthManager {
                                             } else {
                                                 DialogManager.dismissLoadingDialog();
                                                 Snackbar.make(activity.getCurrentFocus(),
-                                                        R.string.wrong_password,
+                                                        R.string.msg_wrong_password,
                                                         Snackbar.LENGTH_LONG).show();
                                             }
                                         }
@@ -159,7 +159,7 @@ public class FAuthManager {
                                 @Override
                                 public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
                                     Snackbar.make(activity.getWindow().getDecorView().getRootView(),
-                                            R.string.cannot_connect_api_google, Snackbar.LENGTH_LONG).show();
+                                            R.string.msg_cannot_connect_api_google, Snackbar.LENGTH_LONG).show();
                                 }
                             })
                     .addApi(Auth.GOOGLE_SIGN_IN_API, gso)

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<set xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shareInterpolator="false">
+    <translate
+        android:duration="@integer/logo_animation"
+        android:fromYDelta="200"
+        android:interpolator="@android:anim/decelerate_interpolator"
+        android:toYDelta="0" />
+    <scale
+        android:duration="@integer/logo_animation"
+        android:fromXScale="0.5"
+        android:fromYScale="0.5"
+        android:interpolator="@android:anim/decelerate_interpolator"
+        android:pivotX="50%"
+        android:pivotY="100%"
+        android:toXScale="1.0"
+        android:toYScale="1.0" />
+    <alpha
+        android:duration="@integer/logo_animation"
+        android:fromAlpha="0.0"
+        android:interpolator="@android:anim/decelerate_interpolator"
+        android:toAlpha="1.0" />
+</set>

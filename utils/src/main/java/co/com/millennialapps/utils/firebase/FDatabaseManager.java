@@ -53,7 +53,7 @@ public class FDatabaseManager {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                Snackbar.make(view, R.string.database_cancelled, Snackbar.LENGTH_LONG).show();
+                Snackbar.make(view, R.string.msg_database_cancelled, Snackbar.LENGTH_LONG).show();
                 FirebaseCrash.report(databaseError.toException());
             }
         });
@@ -70,7 +70,7 @@ public class FDatabaseManager {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                Snackbar.make(view, R.string.database_cancelled, Snackbar.LENGTH_LONG).show();
+                Snackbar.make(view, R.string.msg_database_cancelled, Snackbar.LENGTH_LONG).show();
                 FirebaseCrash.report(databaseError.toException());
             }
         });
@@ -87,7 +87,7 @@ public class FDatabaseManager {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                Snackbar.make(view, R.string.database_cancelled, Snackbar.LENGTH_LONG).show();
+                Snackbar.make(view, R.string.msg_database_cancelled, Snackbar.LENGTH_LONG).show();
                 FirebaseCrash.report(databaseError.toException());
             }
         });
@@ -110,7 +110,7 @@ public class FDatabaseManager {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                Snackbar.make(view, R.string.database_cancelled, Snackbar.LENGTH_LONG).show();
+                Snackbar.make(view, R.string.msg_database_cancelled, Snackbar.LENGTH_LONG).show();
                 FirebaseCrash.report(databaseError.toException());
             }
         });
