@@ -24,7 +24,6 @@ import com.google.firebase.auth.GoogleAuthProvider;
 
 import co.com.millennialapps.utils.R;
 import co.com.millennialapps.utils.models.User;
-import co.com.millennialapps.utils.sqlite.SQLiteConstants;
 import co.com.millennialapps.utils.tools.DialogManager;
 import co.com.millennialapps.utils.tools.Preferences;
 
@@ -104,22 +103,22 @@ public class FAuthManager {
         FDatabaseManager.getInstance().exist("email", email, dataSnapshot -> {
             User user = new User();
             if (dataSnapshot.getValue() == null) {
-                String id = FDatabaseManager.getInstance().pushIndex(SQLiteConstants.DB_USERS);
+                String id = FDatabaseManager.getInstance().pushIndex(User.class.getName());
                 user.setName(firebaseAuth.getCurrentUser().getDisplayName());
                 user.setEmail(firebaseAuth.getCurrentUser().getEmail());
                 user.setUrlPhoto(firebaseAuth.getCurrentUser().getPhotoUrl().toString());
-                FDatabaseManager.getInstance().saveData(user, SQLiteConstants.DB_USERS + "/" + id);
+                FDatabaseManager.getInstance().saveData(user, User.class.getName() + "/" + id);
             } else {
                 if (dataSnapshot.child("password").getValue() == null
                         || dataSnapshot.child("password").getValue().toString().isEmpty()) {
                     FDatabaseManager.getInstance().saveData(user.getPassword(),
-                            SQLiteConstants.DB_USERS + "/" + dataSnapshot.getKey() + "/" + "password");
+                            User.class.getName() + "/" + dataSnapshot.getKey() + "/" + "password");
                 }
                 user = dataSnapshot.getValue(User.class);
             }
             Preferences.saveObjectAsJson(activity, Preferences.PF_USER, Preferences.K_USER, user);
             DialogManager.dismissLoadingDialog();
-        }, activity.getWindow().getDecorView(), SQLiteConstants.DB_USERS);
+        }, activity.getWindow().getDecorView(), User.class.getName());
     }
 
 

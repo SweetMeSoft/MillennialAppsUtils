@@ -50,4 +50,11 @@
     <string name="msg_share_location">Comparte tu ubicación</string>
     <string name="msg_wrong_password">Tu contraseña no es la que tenemos.</string>
 
+    <!--Common millennialApps-->
+    <string name="byMillennialApps">By MillennialApps</string>
+
+    <!--For accesibility-->
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
 </resources>

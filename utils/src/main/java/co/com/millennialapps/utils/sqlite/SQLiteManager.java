@@ -7,18 +7,33 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.google.firebase.crash.FirebaseCrash;
 
+import java.util.List;
+
 public class SQLiteManager {
 
     private static SQLiteManager manager;
     private final SQLiteHelper helper;
     private final SQLiteDatabase db;
 
-    public static SQLiteManager getInstance(Context context) {
-        return manager == null ? manager = new SQLiteManager(context) : manager;
+    public static SQLiteManager getInstance() {
+        return manager;
     }
 
-    private SQLiteManager(Context context) {
-        helper = new SQLiteHelper(context);
+    public static SQLiteManager getInstance(Context context, String dbName, int dbVersion) {
+        return manager == null ? manager = new SQLiteManager(context, dbName, dbVersion) : manager;
+    }
+
+    public static SQLiteManager getInstance(Context context, String dbName, int dbVersion, List<String> sentencesCreateTables) {
+        return manager == null ? manager = new SQLiteManager(context, dbName, dbVersion, sentencesCreateTables) : manager;
+    }
+
+    private SQLiteManager(Context context, String dbName, int dbVersion) {
+        helper = new SQLiteHelper(context, dbName, dbVersion);
+        db = helper.getWritableDatabase();
+    }
+
+    private SQLiteManager(Context context, String dbName, int dbVersion, List<String> sentencesCreateTables) {
+        helper = new SQLiteHelper(context, dbName, dbVersion, sentencesCreateTables);
         db = helper.getWritableDatabase();
     }
 
