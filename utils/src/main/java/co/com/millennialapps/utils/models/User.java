@@ -1,5 +1,7 @@
 package co.com.millennialapps.utils.models;
 
+import com.google.firebase.database.Exclude;
+
 /**
  * Created by erick on 1/7/2017.
  */
@@ -8,11 +10,16 @@ public class User {
 
     private String id;
     private String email;
+    @DataFieldNull
     private String username;
+    @DataFieldNull
     private String password;
     private String name;
+    @DataFieldNull
     private String urlPhoto;
+    @DataFieldNull
     private String urlBanner;
+    @Exclude
     private String token;
 
     public User() {

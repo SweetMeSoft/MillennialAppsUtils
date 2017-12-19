@@ -7,17 +7,15 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.google.firebase.crash.FirebaseCrash;
 
+import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.List;
 
-public class SQLiteManager {
+public class SQLiteManager<T> {
 
     private static SQLiteManager manager;
     private final SQLiteHelper helper;
     private final SQLiteDatabase db;
-
-    public static SQLiteManager getInstance() {
-        return manager;
-    }
 
     public static SQLiteManager getInstance(Context context, String dbName, int dbVersion) {
         return manager == null ? manager = new SQLiteManager(context, dbName, dbVersion) : manager;
@@ -37,8 +35,8 @@ public class SQLiteManager {
         db = helper.getWritableDatabase();
     }
 
-    public boolean isTableExists(String tableName) {
-        String select = "SELECT name FROM sqlite_master WHERE type = 'table' AND name = '" + tableName + "';";
+    public boolean isTableExists(T obj) {
+        String select = "SELECT name FROM sqlite_master WHERE type = 'table' AND name = '" + obj.getClass().getSimpleName() + "';";
         Cursor cursor = db.rawQuery(select, null);
         if (cursor != null) {
             if (cursor.getCount() > 0) {
@@ -49,50 +47,54 @@ public class SQLiteManager {
         return false;
     }
 
-    public Cursor select(String table, String[] columns, String where, String groupBy, String orderBy) {
-        return db.query(table, columns, where, null, groupBy, null, orderBy);
-    }
-
-    /*public <T> List<T> select(String table, String[] columns, String where, String groupBy, String orderBy, Class<T> clazz) {
-        LinkedList<T> list = new LinkedList<>();
-        Cursor cursor = db.query(table, columns, where, null, groupBy, null, orderBy);
+    public List<T> select(Class<T> clazz, String where, String groupBy, String orderBy) {
+        ArrayList<T> list = new ArrayList<>();
+        String[] columns = SQLiteTools.getColumns(clazz);
         try {
+            Cursor cursor = db.query(clazz.getSimpleName(), columns, where, null, groupBy, null, orderBy);
             T obj = clazz.newInstance();
             if (cursor != null && cursor.moveToFirst()) {
                 do {
-                    Field field = clazz.getDeclaredField(fieldName);
-                    field.setAccessible(true);
-                    field.set(obj, cursor.getString());
+                    for (String column : columns) {
+                        Field field = clazz.getDeclaredField(column);
+                        field.setAccessible(true);
+                        field.set(obj, cursor.getString(cursor.getColumnIndex(column)));
+                    }
+                    list.add(obj);
+
                 } while (cursor.moveToNext());
                 cursor.close();
             }
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
+        } catch (java.lang.InstantiationException | IllegalAccessException | NoSuchFieldException e) {
             e.printStackTrace();
         }
         return list;
-    }*/
+    }
 
-    public long insert(String table, ContentValues values) {
+    public long insert(T obj) {
         try {
-            return db.insertOrThrow(table, null, values);
+            return db.insertOrThrow(obj.getClass().getSimpleName(), null, SQLiteTools.getContentValues(obj));
         } catch (Exception e) {
             FirebaseCrash.report(e);
         }
         return 0;
     }
 
-    public boolean existOn(String table, String[] columns, String where) {
-        return db.query(table, columns, where, null, null, null, null).getCount() > 0;
+    public boolean existOn(T obj, String where) {
+        return db.query(obj.getClass().getSimpleName(), SQLiteTools.getColumns(obj.getClass()), where,
+                null, null, null, null).getCount() > 0;
     }
 
-    public void update(String table, ContentValues values, String where) {
+    public void update(T obj, String where) {
         try {
-            db.update(table, values, where, null);
+            db.update(obj.getClass().getSimpleName(), SQLiteTools.getContentValues(obj), where, null);
         } catch (Exception e) {
             FirebaseCrash.report(e);
         }
+    }
+
+    public int delete(String table, String where) {
+        return db.delete(table, where, null);
     }
 
     public SQLiteHelper getHelper() {
@@ -101,9 +103,5 @@ public class SQLiteManager {
 
     public SQLiteDatabase getDb() {
         return db;
-    }
-
-    public int delete(String table, String where) {
-        return db.delete(table, where, null);
     }
 }
