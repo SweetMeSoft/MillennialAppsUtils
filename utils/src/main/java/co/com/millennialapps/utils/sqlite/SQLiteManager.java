@@ -11,6 +11,8 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
+import co.com.millennialapps.utils.models.DataFieldNull;
+
 public class SQLiteManager<T> {
 
     private static SQLiteManager manager;
@@ -52,13 +54,35 @@ public class SQLiteManager<T> {
         String[] columns = SQLiteTools.getColumns(clazz);
         try {
             Cursor cursor = db.query(clazz.getSimpleName(), columns, where, null, groupBy, null, orderBy);
-            T obj = clazz.newInstance();
             if (cursor != null && cursor.moveToFirst()) {
                 do {
+                    T obj = clazz.newInstance();
                     for (String column : columns) {
                         Field field = clazz.getDeclaredField(column);
                         field.setAccessible(true);
-                        field.set(obj, cursor.getString(cursor.getColumnIndex(column)));
+                        if (field.getType().isPrimitive()) {
+                            if (field.getType().equals(Integer.TYPE)) {
+                                field.set(obj, cursor.getInt(cursor.getColumnIndex(column)));
+                            } else if (field.getType().equals(Boolean.TYPE)) {
+                                field.set(obj, cursor.getInt(cursor.getColumnIndex(column)));
+                            } else if (field.getType().equals(Byte.TYPE)) {
+                                field.set(obj, cursor.getInt(cursor.getColumnIndex(column)));
+                            } else if (field.getType().equals(Long.TYPE)) {
+                                field.set(obj, cursor.getLong(cursor.getColumnIndex(column)));
+                            } else if (field.getType().equals(Short.TYPE)) {
+                                field.set(obj, cursor.getShort(cursor.getColumnIndex(column)));
+                            } else if (field.getType().equals(Float.TYPE)) {
+                                field.set(obj, cursor.getFloat(cursor.getColumnIndex(column)));
+                            } else if (field.getType().equals(Double.TYPE)) {
+                                field.set(obj, cursor.getDouble(cursor.getColumnIndex(column)));
+                            } else if (field.getType().equals(Character.TYPE)) {
+                                field.set(obj, cursor.getString(cursor.getColumnIndex(column)));
+                            }
+                        } else {
+                            if (field.getType().isAssignableFrom(String.class)) {
+                                field.set(obj, cursor.getString(cursor.getColumnIndex(column)));
+                            }
+                        }
                     }
                     list.add(obj);
 
