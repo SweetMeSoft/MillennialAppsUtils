@@ -6,6 +6,7 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.firebase.ui.storage.images.FirebaseImageLoader;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
@@ -28,20 +29,11 @@ public class FStorageManager {
         return reference == null ? reference = FirebaseStorage.getInstance().getReference() : reference;
     }
 
-    public void downloadFile(String fileName, String... path) {
-        reference = getReference();
-        StorageReference ref = reference;
-        for (String id : path) {
-            ref = ref.child(id);
-        }
-        ref = ref.child(fileName);
-    }
-
-    public byte[] downloadFile(String path) {
+    public void downloadFile(String path, OnSuccessListener listener) {
         reference = getReference();
         StorageReference ref = reference;
         ref = ref.child(path);
-        return ref.getBytes(1024 * 1024).getResult();
+        ref.getBytes(1024 * 1024).addOnSuccessListener(listener);
     }
 
     public void downloadFileToFile(Context context, String path, String dirName, String fileName) {

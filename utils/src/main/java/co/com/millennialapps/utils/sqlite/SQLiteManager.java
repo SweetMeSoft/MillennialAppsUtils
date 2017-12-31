@@ -95,13 +95,8 @@ public class SQLiteManager<T> {
         return list;
     }
 
-    public long insert(T obj) {
-        try {
-            return db.insertOrThrow(obj.getClass().getSimpleName(), null, SQLiteTools.getContentValues(obj));
-        } catch (Exception e) {
-            FirebaseCrash.report(e);
-        }
-        return 0;
+    public long insert(T obj) throws Exception {
+        return db.insertOrThrow(obj.getClass().getSimpleName(), null, SQLiteTools.getContentValues(obj));
     }
 
     public boolean existOn(T obj, String where) {
@@ -109,15 +104,11 @@ public class SQLiteManager<T> {
                 null, null, null, null).getCount() > 0;
     }
 
-    public void update(T obj, String where) {
-        try {
-            db.update(obj.getClass().getSimpleName(), SQLiteTools.getContentValues(obj), where, null);
-        } catch (Exception e) {
-            FirebaseCrash.report(e);
-        }
+    public void update(T obj, String where) throws Exception {
+        db.update(obj.getClass().getSimpleName(), SQLiteTools.getContentValues(obj), where, null);
     }
 
-    public int delete(String table, String where) {
+    public int delete(String table, String where) throws Exception {
         return db.delete(table, where, null);
     }
 
