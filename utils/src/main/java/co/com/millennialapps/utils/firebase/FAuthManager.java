@@ -42,23 +42,17 @@ public class FAuthManager {
         return authManager == null ? authManager = new FAuthManager() : authManager;
     }
 
-    public void authWithGoogle(final Activity activity, final GoogleSignInAccount acct) {
+    public void authWithGoogle(final Activity activity, final GoogleSignInAccount acct, IUpdateGUILogin updateGUI) {
         final AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
         firebaseAuth.signInWithCredential(credential)
-                .addOnCompleteListener(activity, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            checkAndSaveUser(activity, acct.getEmail());
-                            /*if(activity instanceof MainActivity){
-                                MainActivity activity1 = (MainActivity) activity;
-                                activity1.changeDrawerData();
-                            }*/
-                        } else {
-                            Snackbar.make(activity.getWindow().getDecorView().getRootView(),
-                                    R.string.msg_cannot_login,
-                                    Snackbar.LENGTH_LONG).show();
-                        }
+                .addOnCompleteListener(activity, task -> {
+                    if (task.isSuccessful()) {
+                        checkAndSaveUser(activity, acct.getEmail());
+                        updateGUI.updateGUI();
+                    } else {
+                        Snackbar.make(activity.getWindow().getDecorView().getRootView(),
+                                R.string.msg_cannot_login,
+                                Snackbar.LENGTH_LONG).show();
                     }
                 });
     }
@@ -66,27 +60,21 @@ public class FAuthManager {
     public void authWithPassword(final Activity activity, final String email, final String password) {
         DialogManager.showLoadingDialog(activity, R.string.loading, "Ingresando", true, false);
         firebaseAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(activity, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            checkAndSaveUser(activity, email);
-                        } else {
-                            firebaseAuth.signInWithEmailAndPassword(email, password)
-                                    .addOnCompleteListener(activity, new OnCompleteListener<AuthResult>() {
-                                        @Override
-                                        public void onComplete(@NonNull Task<AuthResult> task) {
-                                            if (task.isSuccessful()) {
-                                                checkAndSaveUser(activity, email);
-                                            } else {
-                                                DialogManager.dismissLoadingDialog();
-                                                Snackbar.make(activity.getCurrentFocus(),
-                                                        R.string.msg_wrong_password,
-                                                        Snackbar.LENGTH_LONG).show();
-                                            }
-                                        }
-                                    });
-                        }
+                .addOnCompleteListener(activity, task -> {
+                    if (task.isSuccessful()) {
+                        checkAndSaveUser(activity, email);
+                    } else {
+                        firebaseAuth.signInWithEmailAndPassword(email, password)
+                                .addOnCompleteListener(activity, task1 -> {
+                                    if (task1.isSuccessful()) {
+                                        checkAndSaveUser(activity, email);
+                                    } else {
+                                        DialogManager.dismissLoadingDialog();
+                                        Snackbar.make(activity.getCurrentFocus(),
+                                                R.string.msg_wrong_password,
+                                                Snackbar.LENGTH_LONG).show();
+                                    }
+                                });
                     }
                 });
     }
@@ -96,16 +84,16 @@ public class FAuthManager {
         FDatabaseManager.getInstance().exist("email", email, dataSnapshot -> {
             User user = new User();
             if (dataSnapshot.getValue() == null) {
-                String id = FDatabaseManager.getInstance().pushIndex(User.class.getName());
+                String id = FDatabaseManager.getInstance().pushIndex(User.class.getSimpleName());
                 user.setName(firebaseAuth.getCurrentUser().getDisplayName());
                 user.setEmail(firebaseAuth.getCurrentUser().getEmail());
                 user.setUrlPhoto(firebaseAuth.getCurrentUser().getPhotoUrl().toString());
-                FDatabaseManager.getInstance().saveData(user, User.class.getName() + "/" + id);
+                FDatabaseManager.getInstance().saveData(user, User.class.getSimpleName() + "/" + id);
             } else {
                 if (dataSnapshot.child("password").getValue() == null
                         || dataSnapshot.child("password").getValue().toString().isEmpty()) {
                     FDatabaseManager.getInstance().saveData(user.getPassword(),
-                            User.class.getName() + "/" + dataSnapshot.getKey() + "/" + "password");
+                            User.class.getSimpleName() + "/" + dataSnapshot.getKey() + "/" + "password");
                 }
                 user = dataSnapshot.getValue(User.class);
             }
@@ -125,5 +113,9 @@ public class FAuthManager {
 
     public void signOut() {
         firebaseAuth.signOut();
+    }
+
+    public interface IUpdateGUILogin {
+        void updateGUI();
     }
 }

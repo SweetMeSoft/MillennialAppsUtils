@@ -22,15 +22,15 @@ import co.com.millennialapps.utils.firebase.FAuthManager;
 public class GooglePlayServicesManager {
 
     public static final int RESULT_GOOGLE_SIGN_IN = 813;
-    private GoogleApiClient mGoogleApiClient;
+    private static GoogleApiClient mGoogleApiClient;
 
-    public void signInGoogle(final Activity activity, int defaultWebClientId) {
+    public static void signInGoogle(final Activity activity, int defaultWebClientId) {
         initGoogleApiClient(activity, defaultWebClientId);
         Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
         activity.startActivityForResult(signInIntent, RESULT_GOOGLE_SIGN_IN);
     }
 
-    public void logoutGoogle(Activity activity, final ResultCallback resultCallback, int defaultWebClientId) {
+    public static void logoutGoogle(Activity activity, final ResultCallback resultCallback, int defaultWebClientId) {
         initGoogleApiClient(activity, defaultWebClientId);
         mGoogleApiClient.connect();
         mGoogleApiClient.registerConnectionCallbacks(new GoogleApiClient.ConnectionCallbacks() {
@@ -52,7 +52,7 @@ public class GooglePlayServicesManager {
         });
     }
 
-    private void initGoogleApiClient(final Activity activity, int defaultWebClientId) {
+    private static void initGoogleApiClient(final Activity activity, int defaultWebClientId) {
         if (mGoogleApiClient == null) {
             GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                     .requestIdToken(activity.getString(defaultWebClientId))
