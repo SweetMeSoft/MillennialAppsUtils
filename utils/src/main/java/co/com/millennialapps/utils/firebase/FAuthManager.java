@@ -84,16 +84,17 @@ public class FAuthManager {
         FDatabaseManager.getInstance().exist("email", email, dataSnapshot -> {
             User user = new User();
             if (dataSnapshot.getValue() == null) {
-                String id = FDatabaseManager.getInstance().pushIndex(User.class.getSimpleName());
                 user.setName(firebaseAuth.getCurrentUser().getDisplayName());
                 user.setEmail(firebaseAuth.getCurrentUser().getEmail());
                 user.setUrlPhoto(firebaseAuth.getCurrentUser().getPhotoUrl().toString());
-                FDatabaseManager.getInstance().saveData(user, User.class.getSimpleName() + "/" + id);
+                user.setId(firebaseAuth.getCurrentUser().getUid());
+                FDatabaseManager.getInstance().saveData(user, User.class.getSimpleName() + "/" + user.getId());
             } else {
                 if (dataSnapshot.child("password").getValue() == null
                         || dataSnapshot.child("password").getValue().toString().isEmpty()) {
-                    FDatabaseManager.getInstance().saveData(user.getPassword(),
-                            User.class.getSimpleName() + "/" + dataSnapshot.getKey() + "/" + "password");
+                    //TODO Update user in Firebase
+                    /*FDatabaseManager.getInstance().saveData(user.getPassword(),
+                            User.class.getSimpleName() + "/" + dataSnapshot.getKey() + "/" + "password");*/
                 }
                 user = dataSnapshot.getValue(User.class);
             }
