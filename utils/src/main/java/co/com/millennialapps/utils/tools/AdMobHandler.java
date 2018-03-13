@@ -35,7 +35,7 @@ public class AdMobHandler implements RewardedVideoAdListener {
     public void initializeRewardedVideo(Activity activity) {
         mRewardedVideoAd = MobileAds.getRewardedVideoAdInstance(activity);
         mRewardedVideoAd.setRewardedVideoAdListener(this);
-        activity = activity;
+        this.activity = activity;
     }
 
     @Override
@@ -73,7 +73,7 @@ public class AdMobHandler implements RewardedVideoAdListener {
         //TODO
     }
 
-    public void loadTestAd() {
+    public void loadAd() {
         mRewardedVideoAd.loadAd("ca-app-pub-3940256099942544/5224354917", new AdRequest.Builder().build());
     }
 

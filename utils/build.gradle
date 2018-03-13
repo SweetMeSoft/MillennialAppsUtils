@@ -66,7 +66,7 @@ ext {
     siteUrl = 'https://github.com/erickvelasco11/MillennialAppsUtils'
     gitUrl = 'https://github.com/erickvelasco11/MillennialAppsUtils.git'
 
-    libraryVersion = '0.27.390'
+    libraryVersion = '0.30.815'
 
     developerId = 'erickvelasco11'
     developerName = 'Erick Velasco'
@@ -81,3 +81,7 @@ ext {
 //Place it at the end of the file
 apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/installv1.gradle'
 apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/bintrayv1.gradle'
+
+//For publish on Bintray use
+// gradlew install
+// gradlew bintrayUpload
