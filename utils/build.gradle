@@ -43,6 +43,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth:11.6.2'
     implementation 'com.google.firebase:firebase-crash:11.6.2'
     implementation 'com.google.firebase:firebase-invites:11.6.2'
+    implementation 'com.google.firebase:firebase-ads:11.6.2'
 
     implementation 'com.google.maps.android:android-maps-utils:0.4.3'
     implementation 'com.google.code.gson:gson:2.8.0'

@@ -24,8 +24,9 @@ public class Permissions {
     private static final int PERMISSIONS_REQUEST = 91832;
 
     public static final String GPS_FINE = Manifest.permission.ACCESS_FINE_LOCATION;
-    public static final String GPS_COARSE = Manifest.permission.ACCESS_FINE_LOCATION;
-    public static final String WRITE_SETTING = Manifest.permission.WRITE_SETTINGS;
+    public static final String GPS_COARSE = Manifest.permission.ACCESS_COARSE_LOCATION;
+    public static final String MODIFY_SETTING = Manifest.permission.WRITE_SETTINGS;
+    public static final String WRITE_EXTERNAL = Manifest.permission.WRITE_EXTERNAL_STORAGE;
 
     public static boolean checkPermission(Fragment fragment, String permission) {
         if (ActivityCompat.checkSelfPermission(fragment.getActivity(), permission) != PackageManager.PERMISSION_GRANTED) {
@@ -47,7 +48,7 @@ public class Permissions {
         return true;
     }
 
-    public static boolean checkWritePermission(Activity activity) {
+    public static boolean checkModifySettings(Activity activity) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (!Settings.System.canWrite(activity)) {
                 DialogManager.showConfirmationDialog(activity, R.string.permissions,

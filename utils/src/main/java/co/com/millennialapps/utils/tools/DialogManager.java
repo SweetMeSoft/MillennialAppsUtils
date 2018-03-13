@@ -1,9 +1,11 @@
 package co.com.millennialapps.utils.tools;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.support.v7.widget.PopupMenu;
 import android.view.View;
 import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
@@ -155,5 +157,12 @@ public class DialogManager {
                 .setMessage(message)
                 .setCancelable(true);
         builder.create().show();
+    }
+
+    public static void showPopUp(Activity activity, View view, int idResource, PopupMenu.OnMenuItemClickListener listener){
+        PopupMenu popup = new PopupMenu(activity, view);
+        popup.getMenuInflater().inflate(idResource, popup.getMenu());
+        popup.setOnMenuItemClickListener(listener);
+        popup.show();
     }
 }
