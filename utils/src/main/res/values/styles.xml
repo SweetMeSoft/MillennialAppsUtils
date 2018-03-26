@@ -23,7 +23,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="actionMenuTextColor">@color/colorAccent</item>
+        <item name="actionMenuTextColor">@color/white</item>
         <item name="actionModeBackground">@color/colorAccent</item>
         <item name="popupTheme">@style/Theme.AppCompat.Light</item>
         <item name="titleTextColor">@color/white</item>

@@ -52,17 +52,16 @@ public class Permissions {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (!Settings.System.canWrite(activity)) {
                 DialogManager.showConfirmationDialog(activity, R.string.permissions,
-                        "En estos momentos no tenemos acceso a modificar las configuraciones de tu teléfono. ¿Quieres ir al administrador y concedernos los permisos?",
+                        "En estos momentos no tenemos acceso a modificar las configuraciones de tu teléfono. " +
+                                "¿Quieres ir al administrador y concedernos los permisos?",
                         (dialog, which) -> {
                             Intent intent = new Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS);
                             intent.setData(Uri.parse("package:" + activity.getPackageName()));
                             activity.startActivity(intent);
                         }, (dialog, which) -> {
                         });
-            } else {
-                return true;
             }
         }
-        return false;
+        return true;
     }
 }

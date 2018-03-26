@@ -122,24 +122,38 @@ public class DialogManager {
     public static void showConfirmationDialog(Context context, int title, int message,
                                               DialogInterface.OnClickListener acceptAction,
                                               DialogInterface.OnClickListener cancelAction) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setTitle(title)
-                .setMessage(message)
-                .setCancelable(false)
-                .setPositiveButton(R.string.accept, acceptAction)
-                .setNegativeButton(R.string.cancel, cancelAction);
-        builder.create().show();
+        showConfirmationDialog(context, title, message, R.string.accept, R.string.cancel, acceptAction, cancelAction);
     }
 
     public static void showConfirmationDialog(Context context, int title, String message,
+                                              DialogInterface.OnClickListener acceptAction,
+                                              DialogInterface.OnClickListener cancelAction) {
+        showConfirmationDialog(context, title, message, R.string.accept, R.string.cancel, acceptAction, cancelAction);
+    }
+
+    public static void showConfirmationDialog(Context context, int title, int message,
+                                              int acceptString, int cancelString,
                                               DialogInterface.OnClickListener acceptAction,
                                               DialogInterface.OnClickListener cancelAction) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle(title)
                 .setMessage(message)
                 .setCancelable(false)
-                .setPositiveButton(R.string.accept, acceptAction)
-                .setNegativeButton(R.string.cancel, cancelAction);
+                .setPositiveButton(acceptString, acceptAction)
+                .setNegativeButton(cancelString, cancelAction);
+        builder.create().show();
+    }
+
+    public static void showConfirmationDialog(Context context, int title, String message,
+                                              int acceptString, int cancelString,
+                                              DialogInterface.OnClickListener acceptAction,
+                                              DialogInterface.OnClickListener cancelAction) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle(title)
+                .setMessage(message)
+                .setCancelable(false)
+                .setPositiveButton(acceptString, acceptAction)
+                .setNegativeButton(cancelString, cancelAction);
         builder.create().show();
     }
 
@@ -159,7 +173,7 @@ public class DialogManager {
         builder.create().show();
     }
 
-    public static void showPopUp(Activity activity, View view, int idResource, PopupMenu.OnMenuItemClickListener listener){
+    public static void showPopUp(Activity activity, View view, int idResource, PopupMenu.OnMenuItemClickListener listener) {
         PopupMenu popup = new PopupMenu(activity, view);
         popup.getMenuInflater().inflate(idResource, popup.getMenu());
         popup.setOnMenuItemClickListener(listener);
