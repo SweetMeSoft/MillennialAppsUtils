@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.PopupMenu;
 import android.view.View;
 import android.widget.BaseAdapter;
@@ -178,5 +179,17 @@ public class DialogManager {
         popup.getMenuInflater().inflate(idResource, popup.getMenu());
         popup.setOnMenuItemClickListener(listener);
         popup.show();
+    }
+
+    public static void showSnackbar(Activity activity, int message) {
+        if (activity.getCurrentFocus() != null) {
+            Snackbar.make(activity.getCurrentFocus(), message, Snackbar.LENGTH_LONG).show();
+        }
+    }
+
+    public static void showSnackbar(Activity activity, String message) {
+        if (activity.getCurrentFocus() != null) {
+            Snackbar.make(activity.getCurrentFocus(), message, Snackbar.LENGTH_LONG).show();
+        }
     }
 }

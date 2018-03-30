@@ -60,6 +60,7 @@ public class Permissions {
                             activity.startActivity(intent);
                         }, (dialog, which) -> {
                         });
+                return false;
             }
         }
         return true;
