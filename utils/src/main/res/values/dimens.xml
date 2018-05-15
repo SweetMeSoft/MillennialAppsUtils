@@ -15,5 +15,6 @@
     <dimen name="appbar_padding_top">8dp</dimen>
     <dimen name="appbar_header_height">256dp</dimen>
     <dimen name="activity_margin_content">12dp</dimen>
+    <dimen name="padding_logo">0dp</dimen>
 
 </resources>

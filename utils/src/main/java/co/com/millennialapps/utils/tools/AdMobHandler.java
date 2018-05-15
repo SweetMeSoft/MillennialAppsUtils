@@ -59,6 +59,11 @@ public class AdMobHandler implements RewardedVideoAdListener {
     }
 
     @Override
+    public void onRewardedVideoCompleted() {
+
+    }
+
+    @Override
     public void onRewardedVideoAdLoaded() {
         //TODO
     }

@@ -9,12 +9,17 @@
     <ImageView
         android:id="@+id/imgLogo"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="48dp"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="178dp"
+        android:layout_marginEnd="64dp"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="178dp"
         android:scaleType="fitCenter"
+        android:padding="@dimen/padding_logo"
         android:src="@drawable/ic_logo_default" />
 
     <TextView
+        android:id="@+id/txtCreator"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
