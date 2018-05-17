@@ -1,0 +1,85 @@
+<resources>
+    <!--Short values-->
+    <string name="about">À propos de</string>
+    <string name="accept">Accepter</string>
+    <string name="acquire">Acquérir</string>
+    <string name="acquired">Acquis</string>
+    <string name="address">Adresse</string>
+    <string name="add_favourite">Ajouter aux favoris</string>
+    <string name="buy">Acheter</string>
+    <string name="buy_now">Acheter maintenant</string>
+    <string name="cancel">Annuler</string>
+    <string name="category">Catégorie</string>
+    <string name="categories">Catégories</string>
+    <string name="clear">Clair</string>
+    <string name="coins">Pièces</string>
+    <string name="configuring">En configurant</string>
+    <string name="contact">Contactez-nous</string>
+    <string name="description">Description</string>
+    <string name="download">Télécharger</string>
+    <string name="email">Email</string>
+    <string name="exit">Sortir</string>
+    <string name="faq">Questions fréquentes</string>
+    <string name="floor">Sol</string>
+    <string name="guest">-Invité</string>
+    <string name="help">Aide</string>
+    <string name="instructions">Instructions</string>
+    <string name="latitude">Latitude</string>
+    <string name="loading">Chargement</string>
+    <string name="login">Entrer</string>
+    <string name="longitude">Longueur</string>
+    <string name="map">Carte</string>
+    <string name="name">Nom</string>
+    <string name="new_version">Nouvelle version</string>
+    <string name="no">Non</string>
+    <string name="not_internet">Sans internet</string>
+    <string name="no_coins">Sans pièces</string>
+    <string name="phone">Téléphone</string>
+    <string name="promos">Promotions</string>
+    <string name="promotional_video">Vidéo promotionnelle</string>
+    <string name="rate_us">Évaluez nous</string>
+    <string name="save">Enregistrer</string>
+    <string name="search">Chercher</string>
+    <string name="searching">En cherchant</string>
+    <string name="setting">Options</string>
+    <string name="share">Partager</string>
+    <string name="sounds">Sons</string>
+    <string name="support">Aide et support</string>
+    <string name="terms">Conditions et confidentialité</string>
+    <string name="tickets">Tickets</string>
+    <string name="use_like">Utiliser comme</string>
+    <string name="warning">Avertissement</string>
+    <string name="welcome">Bienvenue</string>
+    <string name="yes">D'accord</string>
+
+    <!--Messages-->
+    <string name="msg_cannot_connect_api_google">Nous ne pouvons pas accéder à Google.</string>
+    <string name="msg_cannot_login">Nous ne pouvons pas entrer en ce moment. Veuillez réessayer plus tard.</string>
+    <string name="msg_configuring_first_time">Salut. Nous nous connectons à la base de données pour configurer l'utilisation sur votre téléphone portable. Donnez-nous un moment et nous continuerons avec vous.</string>
+    <string name="msg_connect_internet">Hey, vous n'êtes pas connecté à Internet. Connectez-vous seulement la première fois. Nous devons télécharger des choses pour compléter l'application à 100%. C'est seulement la première fois. D'accord? :)</string>
+    <string name="msg_database_cancelled">La connexion à la base de données a été annulée. Réessayez.</string>
+    <string name="msg_field_cannot_empty">Cet espace ne peut pas être vide</string>
+    <string name="msg_new_database_version">Bonjour, désolé! Nous trouvons une nouvelle version de base de données sur les serveurs. C'est la faute de nos ingénieurs. Nous allons le télécharger rapidement. Pardon!</string>
+    <string name="msg_please_login_google">Connectez-vous avec votre compte Google.</string>
+    <string name="msg_share_location">Partagez votre emplacement</string>
+    <string name="msg_wrong_password">Votre mot de passe n'est pas celui que nous avons</string>
+
+    <!--Common millennialApps-->
+    <string name="byMillennialApps">By MillennialApps</string>
+    <string name="sku_test">android.test.purchased</string>
+    <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>
+
+    <!--For accesibility-->
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="permissions">Autorisations</string>
+
+    <string name="add_wish_list">Ajouter à la liste de souhaits</string>
+    <string name="use_call_tone">Utiliser pour les appels</string>
+    <string name="use_notification_tone">Utiliser pour les notifications</string>
+    <string name="use_alarm_tone">Utiliser pour les alarmes</string>
+
+    <string name="package_n">Paquet %1$d</string>
+    <string name="desc_package_n">Ce paquet inclut %1$d Pièces donc vous pouvez acheter tous les sons que vous voulez.</string>
+
+</resources>

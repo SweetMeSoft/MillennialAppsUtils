@@ -1,0 +1,83 @@
+<resources>
+
+    <!--Short values-->
+    <string name="about">Acerca de</string>
+    <string name="accept">Aceptar</string>
+    <string name="acquire">Adquirir</string>
+    <string name="acquired">Adquirido</string>
+    <string name="address">Dirección</string>
+    <string name="add_favourite">Agregar a favoritos</string>
+    <string name="buy">Comprar</string>
+    <string name="buy_now">Comprar ahora</string>
+    <string name="cancel">Cancelar</string>
+    <string name="category">Categoría</string>
+    <string name="categories">Categorías</string>
+    <string name="clear">Limpiar</string>
+    <string name="coins">Coins</string>
+    <string name="configuring">Configurando</string>
+    <string name="contact">Contáctanos</string>
+    <string name="description">Descripción</string>
+    <string name="download">Descargar</string>
+    <string name="email">Email</string>
+    <string name="exit">Salir</string>
+    <string name="faq">Preguntas Frecuentes</string>
+    <string name="floor">Piso</string>
+    <string name="guest">Invitado</string>
+    <string name="help">Ayuda</string>
+    <string name="instructions">Instrucciones</string>
+    <string name="latitude">Latitud</string>
+    <string name="loading">Cargando</string>
+    <string name="login">Ingresar</string>
+    <string name="longitude">Longitud</string>
+    <string name="map">Mapa</string>
+    <string name="name">Nombre</string>
+    <string name="new_version">Nueva versión</string>
+    <string name="no">No</string>
+    <string name="not_internet">Sin internet</string>
+    <string name="no_coins">Sin Coins</string>
+    <string name="phone">Teléfono</string>
+    <string name="promos">Promociones</string>
+    <string name="promotional_video">Video promocional</string>
+    <string name="rate_us">Califícanos</string>
+    <string name="save">Guardar</string>
+    <string name="search">Buscar</string>
+    <string name="searching">Buscando</string>
+    <string name="setting">Opciones</string>
+    <string name="share">Compartir</string>
+    <string name="sounds">Sonidos</string>
+    <string name="support">Ayuda y soporte</string>
+    <string name="terms">Términos y Privacidad</string>
+    <string name="tickets">Tickets</string>
+    <string name="use_like">Usar como</string>
+    <string name="warning">Advertencia</string>
+    <string name="welcome">Bienvenido</string>
+    <string name="yes">Si</string>
+
+    <!--Messages-->
+    <string name="msg_cannot_connect_api_google">No podemos acceder a Google.</string>
+    <string name="msg_cannot_login">No podemos ingresar en este momento. Por favor, inténtalo mas tarde.</string>
+    <string name="msg_configuring_first_time">Hola. Estamos conectándonos a la base de datos para configurar el uso en tu celular. Por fa, danos un momento y ya seguimos contigo.</string>
+    <string name="msg_connect_internet">Oye, no estás conectado a internet. Por fa, conéctate solo la primera vez, necesitamos descargar unas cositas para dejarte la app al 100%. Solo es la primera vez ¿si? :)</string>
+    <string name="msg_database_cancelled">La conexión a la base de datos se canceló. Intenta otra vez.</string>
+    <string name="msg_field_cannot_empty">Este campo no puede estar vacío</string>
+    <string name="msg_new_database_version">Hola, perdón molestarte! Es que encontramos una nueva versión de la base de datos en los servidores. Es culpa de nuestros ingenieros. Vamos a descargarla rápido y no molestamos más. Perdón!</string>
+    <string name="msg_please_login_google">Ingresa con tu cuenta de Google.</string>
+    <string name="msg_share_location">Comparte tu ubicación</string>
+    <string name="msg_wrong_password">Tu contraseña no es la que tenemos.</string>
+
+    <!--Common millennialApps-->
+    <string name="byMillennialApps">By MillennialApps</string>
+    <string name="sku_test">android.test.purchased</string>
+    <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>
+
+    <!--For accesibility-->
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="permissions">Permisos</string>
+
+    <string name="add_wish_list">Agregar a lista de deseos</string>
+    <string name="use_call_tone">Usar para llamadas</string>
+    <string name="use_notification_tone">Usar para notificaciones</string>
+    <string name="use_alarm_tone">Usar para alarmas</string>
+
+</resources>

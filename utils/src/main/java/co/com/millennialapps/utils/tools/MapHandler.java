@@ -38,6 +38,9 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import co.com.millennialapps.utils.common.ILatLngEvent;
+import co.com.millennialapps.utils.common.IMarkerEvent;
+
 /**
  * Created by erick on 10/7/2017.
  */
@@ -273,8 +276,37 @@ public class MapHandler implements SensorEventListener {
         }
     }
 
-    public void addMarkerListener(GoogleMap.OnMarkerClickListener listener) {
-        map.setOnMarkerClickListener(listener);
+    public void addMarkerListener(IMarkerEvent event) {
+        map.setOnMarkerClickListener(event::onEvent);
+    }
+
+    public void addMapClickListener(ILatLngEvent event) {
+        map.setOnMapClickListener(event::onEvent);
+    }
+
+    public void addDragMarkerListener(IMarkerEvent dragStart, IMarkerEvent drag, IMarkerEvent dragEnd) {
+        map.setOnMarkerDragListener(new GoogleMap.OnMarkerDragListener() {
+            @Override
+            public void onMarkerDragStart(Marker marker) {
+                dragStart.onEvent(marker);
+            }
+
+            @Override
+            public void onMarkerDrag(Marker marker) {
+                drag.onEvent(marker);
+            }
+
+            @Override
+            public void onMarkerDragEnd(Marker marker) {
+                dragEnd.onEvent(marker);
+            }
+        });
+    }
+
+    public void addInfoWindowListener(IMarkerEvent click, IMarkerEvent close, IMarkerEvent longClick){
+        map.setOnInfoWindowClickListener(click::onEvent);
+        map.setOnInfoWindowCloseListener(close::onEvent);
+        map.setOnInfoWindowLongClickListener(longClick::onEvent);
     }
 
     public float distance(LatLng from, LatLng to, int measure) {
@@ -351,9 +383,6 @@ public class MapHandler implements SensorEventListener {
         map.setMapStyle(mapStyleOptions);
     }
 
-    public void onMapClickListener(GoogleMap.OnMapClickListener listener) {
-        map.setOnMapClickListener(listener);
-    }
 
     public void addPolyline(int idColor, int width, LatLng... latLng) {
         PolylineOptions options = new PolylineOptions()
