@@ -64,7 +64,7 @@ public class SQLiteManager<T> {
                             if (field.getType().equals(Integer.TYPE)) {
                                 field.set(obj, cursor.getInt(cursor.getColumnIndex(column)));
                             } else if (field.getType().equals(Boolean.TYPE)) {
-                                field.set(obj, cursor.getInt(cursor.getColumnIndex(column)));
+                                field.set(obj, cursor.getInt(cursor.getColumnIndex(column)) > 0);
                             } else if (field.getType().equals(Byte.TYPE)) {
                                 field.set(obj, cursor.getInt(cursor.getColumnIndex(column)));
                             } else if (field.getType().equals(Long.TYPE)) {
