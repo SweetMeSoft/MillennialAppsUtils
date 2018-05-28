@@ -12,6 +12,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
@@ -157,15 +158,16 @@ public class MapHandler implements SensorEventListener {
         polylines.clear();
     }
 
-    public void addMarker(String id, LatLng latLng, Object tag) {
+    public Marker addMarker(String id, LatLng latLng, Object tag) {
         MarkerOptions markerOptions = new MarkerOptions()
                 .position(latLng);
         Marker marker = map.addMarker(markerOptions);
         marker.setTag(new Gson().toJson(tag));
         markers.put(id, marker);
+        return marker;
     }
 
-    public void addMarker(String id, LatLng latLng, Object tag, String title, String description) {
+    public Marker addMarker(String id, LatLng latLng, Object tag, String title, String description) {
         MarkerOptions markerOptions = new MarkerOptions()
                 .position(latLng)
                 .title(title)
@@ -173,9 +175,10 @@ public class MapHandler implements SensorEventListener {
         Marker marker = map.addMarker(markerOptions);
         marker.setTag(new Gson().toJson(tag));
         markers.put(id, marker);
+        return marker;
     }
 
-    public void addMarker(String id, LatLng latLng, Object tag, float color, String title, String description) {
+    public Marker addMarker(String id, LatLng latLng, Object tag, float color, String title, String description) {
         MarkerOptions markerOptions = new MarkerOptions()
                 .position(latLng)
                 .title(title)
@@ -184,6 +187,7 @@ public class MapHandler implements SensorEventListener {
         marker.setTag(new Gson().toJson(tag));
         markers.put(id, marker);
         coloringMarker(id, color);
+        return marker;
     }
 
     private void addUserMarker() {
@@ -276,37 +280,65 @@ public class MapHandler implements SensorEventListener {
         }
     }
 
-    public void addMarkerListener(IMarkerEvent event) {
-        map.setOnMarkerClickListener(event::onEvent);
+    public void addMarkerListener(@Nullable IMarkerEvent event) {
+        map.setOnMarkerClickListener(marker -> {
+            if (event != null) {
+                event.onEvent(marker);
+                return true;
+            }
+            return false;
+        });
     }
 
-    public void addMapClickListener(ILatLngEvent event) {
-        map.setOnMapClickListener(event::onEvent);
-    }
-
-    public void addDragMarkerListener(IMarkerEvent dragStart, IMarkerEvent drag, IMarkerEvent dragEnd) {
-        map.setOnMarkerDragListener(new GoogleMap.OnMarkerDragListener() {
-            @Override
-            public void onMarkerDragStart(Marker marker) {
-                dragStart.onEvent(marker);
-            }
-
-            @Override
-            public void onMarkerDrag(Marker marker) {
-                drag.onEvent(marker);
-            }
-
-            @Override
-            public void onMarkerDragEnd(Marker marker) {
-                dragEnd.onEvent(marker);
+    public void addMapClickListener(@Nullable ILatLngEvent event) {
+        map.setOnMapClickListener(marker -> {
+            if (event != null) {
+                event.onEvent(marker);
             }
         });
     }
 
-    public void addInfoWindowListener(IMarkerEvent click, IMarkerEvent close, IMarkerEvent longClick){
-        map.setOnInfoWindowClickListener(click::onEvent);
-        map.setOnInfoWindowCloseListener(close::onEvent);
-        map.setOnInfoWindowLongClickListener(longClick::onEvent);
+    public void addDragMarkerListener(@Nullable IMarkerEvent dragStart, @Nullable IMarkerEvent drag, @Nullable IMarkerEvent dragEnd) {
+        map.setOnMarkerDragListener(new GoogleMap.OnMarkerDragListener() {
+            @Override
+            public void onMarkerDragStart(Marker marker) {
+                if (dragStart != null) {
+                    dragStart.onEvent(marker);
+                }
+            }
+
+            @Override
+            public void onMarkerDrag(Marker marker) {
+                if (drag != null) {
+                    drag.onEvent(marker);
+                }
+            }
+
+            @Override
+            public void onMarkerDragEnd(Marker marker) {
+                if (dragEnd != null) {
+                    dragEnd.onEvent(marker);
+                }
+            }
+        });
+    }
+
+    public void addInfoWindowListener(@Nullable IMarkerEvent click, @Nullable IMarkerEvent close, @Nullable IMarkerEvent longClick) {
+        map.setOnInfoWindowClickListener(marker -> {
+            if (click != null) {
+                click.onEvent(marker);
+            }
+        });
+        map.setOnInfoWindowCloseListener(marker -> {
+            if (close != null) {
+                close.onEvent(marker);
+            }
+        });
+        map.setOnInfoWindowLongClickListener(marker -> {
+            if (longClick != null) {
+                longClick.onEvent(marker);
+            }
+        });
     }
 
     public float distance(LatLng from, LatLng to, int measure) {

@@ -182,14 +182,14 @@ public class DialogManager {
     }
 
     public static void showSnackbar(Activity activity, int message) {
-        if (activity.getCurrentFocus() != null) {
-            Snackbar.make(activity.getCurrentFocus(), message, Snackbar.LENGTH_LONG).show();
-        }
+        showSnackbar(activity, activity.getString(message));
     }
 
     public static void showSnackbar(Activity activity, String message) {
         if (activity.getCurrentFocus() != null) {
             Snackbar.make(activity.getCurrentFocus(), message, Snackbar.LENGTH_LONG).show();
+        } else {
+            Snackbar.make(activity.getWindow().getDecorView(), message, Snackbar.LENGTH_LONG).show();
         }
     }
 }
