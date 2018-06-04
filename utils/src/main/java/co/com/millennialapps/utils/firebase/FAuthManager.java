@@ -1,30 +1,16 @@
 package co.com.millennialapps.utils.firebase;
 
 import android.app.Activity;
-import android.content.Intent;
-import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.FragmentActivity;
 
-import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.api.ResultCallback;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
-import com.google.firebase.database.DataSnapshot;
 
 import co.com.millennialapps.utils.R;
-import co.com.millennialapps.utils.common.IReceiveDB;
+import co.com.millennialapps.utils.common.IAuthResult;
 import co.com.millennialapps.utils.models.User;
 import co.com.millennialapps.utils.tools.DialogManager;
 import co.com.millennialapps.utils.tools.Preferences;
@@ -40,6 +26,12 @@ public class FAuthManager {
 
     public static FAuthManager getInstance() {
         return authManager == null ? authManager = new FAuthManager() : authManager;
+    }
+
+    public void authAnonymously(final Activity activity, IAuthResult result) {
+        FirebaseAuth.getInstance().signInAnonymously()
+                .addOnSuccessListener(activity, result::onResult)
+                .addOnFailureListener(activity, exception -> DialogManager.showSnackbar(activity, exception.getMessage()));
     }
 
     public void authWithGoogle(final Activity activity, final GoogleSignInAccount acct, IUpdateGUILogin updateGUI) {

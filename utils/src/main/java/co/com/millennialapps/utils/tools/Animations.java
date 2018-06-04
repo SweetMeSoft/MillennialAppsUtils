@@ -32,10 +32,15 @@ public class Animations {
                                     final int primaryColorDark,
                                     final int drawerLayoutId) {
         final Toolbar mToolbar = activity.findViewById(R.id.toolbar);
-        final DrawerLayout mDrawerLayout = activity.findViewById(drawerLayoutId);
+        DrawerLayout mDrawerLayout = null;
+        if (drawerLayoutId != 0) {
+            mDrawerLayout = activity.findViewById(drawerLayoutId);
+        }
 
         mToolbar.setBackgroundColor(ContextCompat.getColor(activity, primaryColorDark));
-        mDrawerLayout.setStatusBarBackgroundColor(ContextCompat.getColor(activity, R.color.gray));
+        if (drawerLayoutId != 0) {
+            mDrawerLayout.setStatusBarBackgroundColor(ContextCompat.getColor(activity, R.color.gray));
+        }
 
         if (show) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -60,12 +65,15 @@ public class Animations {
                 Animator createCircularReveal = ViewAnimationUtils.createCircularReveal(mToolbar,
                         isRtl(activity.getResources()) ? mToolbar.getWidth() - width : width, mToolbar.getHeight() / 2, (float) width, 0.0f);
                 createCircularReveal.setDuration(250);
+                DrawerLayout finalMDrawerLayout = mDrawerLayout;
                 createCircularReveal.addListener(new AnimatorListenerAdapter() {
                     @Override
                     public void onAnimationEnd(Animator animation) {
                         super.onAnimationEnd(animation);
                         mToolbar.setBackgroundColor(getThemeColor(activity, R.attr.colorPrimary));
-                        mDrawerLayout.setStatusBarBackgroundColor(getThemeColor(activity, R.attr.colorPrimaryDark));
+                        if (drawerLayoutId != 0) {
+                            finalMDrawerLayout.setStatusBarBackgroundColor(getThemeColor(activity, R.attr.colorPrimaryDark));
+                        }
                     }
                 });
                 createCircularReveal.start();
@@ -94,12 +102,18 @@ public class Animations {
                 });
                 mToolbar.startAnimation(animationSet);
             }
-            mDrawerLayout.setStatusBarBackgroundColor(getThemeColor(activity, R.attr.colorPrimaryDark));
+
+            if (drawerLayoutId != 0) {
+                mDrawerLayout.setStatusBarBackgroundColor(getThemeColor(activity, R.attr.colorPrimaryDark));
+            }
         }
     }
 
     private static boolean isRtl(Resources resources) {
-        return resources.getConfiguration().getLayoutDirection() == View.LAYOUT_DIRECTION_RTL;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            return resources.getConfiguration().getLayoutDirection() == View.LAYOUT_DIRECTION_RTL;
+        }
+        return false;
     }
 
     private static int getThemeColor(Context context, int id) {

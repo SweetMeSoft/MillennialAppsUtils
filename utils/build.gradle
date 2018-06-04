@@ -4,7 +4,7 @@ android {
     compileSdkVersion 27
 
     defaultConfig {
-        minSdkVersion 17
+        minSdkVersion 15
         targetSdkVersion 27
         versionCode 1
         versionName "1.0"
@@ -41,6 +41,7 @@ dependencies {
 
     implementation 'com.google.firebase:firebase-storage:15.0.2'
     implementation 'com.google.firebase:firebase-database:15.0.1'
+    implementation 'com.google.firebase:firebase-firestore:16.0.0'
     implementation 'com.google.firebase:firebase-auth:15.1.0'
     implementation 'com.google.firebase:firebase-crash:15.0.2'
     implementation 'com.google.firebase:firebase-invites:15.0.1'
@@ -67,7 +68,7 @@ ext {
     siteUrl = 'https://github.com/erickvelasco11/MillennialAppsUtils'
     gitUrl = 'https://github.com/erickvelasco11/MillennialAppsUtils.git'
 
-    libraryVersion = '0.34.872'
+    libraryVersion = '0.35.975'
 
     developerId = 'erickvelasco11'
     developerName = 'Erick Velasco'
