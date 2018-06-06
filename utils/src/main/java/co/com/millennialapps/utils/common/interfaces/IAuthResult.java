@@ -1,4 +1,4 @@
-package co.com.millennialapps.utils.common;
+package co.com.millennialapps.utils.common.interfaces;
 
 import com.google.firebase.auth.AuthResult;
 

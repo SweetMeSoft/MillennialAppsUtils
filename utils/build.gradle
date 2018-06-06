@@ -68,7 +68,7 @@ ext {
     siteUrl = 'https://github.com/erickvelasco11/MillennialAppsUtils'
     gitUrl = 'https://github.com/erickvelasco11/MillennialAppsUtils.git'
 
-    libraryVersion = '0.35.975'
+    libraryVersion = '0.38.190'
 
     developerId = 'erickvelasco11'
     developerName = 'Erick Velasco'

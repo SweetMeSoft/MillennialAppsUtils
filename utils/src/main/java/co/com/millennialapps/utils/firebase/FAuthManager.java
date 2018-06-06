@@ -10,7 +10,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
 import co.com.millennialapps.utils.R;
-import co.com.millennialapps.utils.common.IAuthResult;
+import co.com.millennialapps.utils.common.interfaces.IAuthResult;
 import co.com.millennialapps.utils.models.User;
 import co.com.millennialapps.utils.tools.DialogManager;
 import co.com.millennialapps.utils.tools.Preferences;

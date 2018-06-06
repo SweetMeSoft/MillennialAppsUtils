@@ -11,7 +11,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import co.com.millennialapps.utils.R;
-import co.com.millennialapps.utils.common.IReceiveDB;
+import co.com.millennialapps.utils.common.interfaces.IReceiveDB;
 
 /**
  * Created by erick on 6/7/2017.

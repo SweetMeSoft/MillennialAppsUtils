@@ -28,7 +28,6 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
-import com.google.firebase.crash.FirebaseCrash;
 import com.google.gson.Gson;
 import com.google.maps.android.kml.KmlLayer;
 
@@ -39,8 +38,10 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import co.com.millennialapps.utils.common.ILatLngEvent;
-import co.com.millennialapps.utils.common.IMarkerEvent;
+import co.com.millennialapps.utils.common.interfaces.IAsyncResponse;
+import co.com.millennialapps.utils.common.interfaces.ILatLngEvent;
+import co.com.millennialapps.utils.common.interfaces.IMarkerEvent;
+import co.com.millennialapps.utils.tools.tasks.PathFinder;
 
 /**
  * Created by erick on 10/7/2017.
@@ -48,33 +49,52 @@ import co.com.millennialapps.utils.common.IMarkerEvent;
 
 public class MapHandler implements SensorEventListener {
 
+    //region Constants
     //Measures
     public static final int METERS = 0;
     public static final int KILOMETERS = 1;
 
     //Colors
-    public static final float GREEN = 128;
-    public static final float RED = 0;
+    public static final float HUE_RED = 0;
+    public static final float HUE_ORANGE = 30;
+    public static final float HUE_YELLOW = 60;
+    public static final float HUE_GREEN = 120;
+    public static final float HUE_CYAN = 180;
+    public static final float HUE_AZURE = 210;
+    public static final float HUE_BLUE = 240;
+    public static final float HUE_VIOLET = 270;
+    public static final float HUE_MAGENTA = 300;
+    public static final float HUE_PINK = 330;
 
     //Zooms
     public static final float CLOSER_ZOOM = 24;
     public static final float DEFAULT_ZOOM = 17;
     public static final float MEDIUM_ZOOM = 11;
-    public static final int ZOOM_LOCATION = 1;
-    public static final int ZOOM_CITY = 2;
+    public static final int VIEW_LOCATION = 1;
+    public static final int VIEW_CITY = 2;
 
     public static final int POLYLINE_WIDTH_DEFAULT = 8;
     public static final int POLYLINE_WIDTH_BOLD = 15;
 
+    //Map Types
+    public static int MAP_NONE = 0;
+    public static int MAP_NORMAL = 1;
+    public static int MAP_SATELLITE = 2;
+    public static int MAP_TERRAIN = 3;
+    public static int MAP_HYBRID = 4;
+
     //Tilts
     public float TILT_FOR_NAVIGATION = 70;
+    //endregion
 
+    //region Variables for map
     private GoogleMap map;
     private Marker userMarker;
     private HashMap<String, Marker> markers = new HashMap<>();
     private LinkedList<Polyline> polylines = new LinkedList<>();
     private Location myLocation;
     private KmlLayer layer;
+    //endregion
 
     //Sensor
     private SensorManager mSensorManager;
@@ -111,13 +131,37 @@ public class MapHandler implements SensorEventListener {
         }
     };
 
+    //region Constructor
     public MapHandler(GoogleMap map) {
         this.map = map;
     }
+    //endregion
 
+    //region Enable Properties
     public void enableCustomInfoWindow(GoogleMap.InfoWindowAdapter adapter) {
         map.setInfoWindowAdapter(adapter);
     }
+
+    public void enableAutoLocation(Activity activity, GoogleApiClient mGoogleApiClient, int viewZoom) {
+        if (Permissions.checkPermission(activity, Permissions.GPS_FINE)
+                || Permissions.checkPermission(activity, Permissions.GPS_COARSE)) {
+
+            myLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+
+            if (myLocation != null) {
+                map.setMyLocationEnabled(true);
+                switch (viewZoom) {
+                    case VIEW_LOCATION:
+                        zoomToMyPosition(true, 0);
+                        break;
+                    case VIEW_CITY:
+                        zoomToCurrentCity(activity);
+                        break;
+                }
+            }
+        }
+    }
+    //endregion
 
     public void startNavigate(Context context) {
         mSensorManager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
@@ -133,6 +177,7 @@ public class MapHandler implements SensorEventListener {
         mSensorManager.unregisterListener(this);
     }
 
+    //region Clear
     public void clearMap(boolean clearUser) {
         map.clear();
         markers.clear();
@@ -157,7 +202,9 @@ public class MapHandler implements SensorEventListener {
         }
         polylines.clear();
     }
+    //endregion
 
+    //region Markers
     public Marker addMarker(String id, LatLng latLng, Object tag) {
         MarkerOptions markerOptions = new MarkerOptions()
                 .position(latLng);
@@ -204,7 +251,14 @@ public class MapHandler implements SensorEventListener {
         }
     }
 
+    public void coloringMarker(String key, float color) {
+        if (markers.get(key) != null) {
+            markers.get(key).setIcon(BitmapDescriptorFactory.defaultMarker(color));
+        }
+    }
+    //endregion
 
+    //region Zoom
     public void zoomTo(float zoom, LatLng latLng, boolean animate) {
         if (animate) {
             map.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoom));
@@ -269,17 +323,13 @@ public class MapHandler implements SensorEventListener {
                     //TODO Return City
                 }
             } catch (IOException e) {
-                FirebaseCrash.report(e);
+                //FirebaseCrash.report(e);
             }
         }
     }
+    //endregion
 
-    public void coloringMarker(String key, float color) {
-        if (markers.get(key) != null) {
-            markers.get(key).setIcon(BitmapDescriptorFactory.defaultMarker(color));
-        }
-    }
-
+    //region Listeners
     public void addMarkerListener(@Nullable IMarkerEvent event) {
         map.setOnMarkerClickListener(marker -> {
             if (event != null) {
@@ -340,7 +390,9 @@ public class MapHandler implements SensorEventListener {
             }
         });
     }
+    //endregion
 
+    //region Tools
     public float distance(LatLng from, LatLng to, int measure) {
         float[] results = new float[1];
         Location.distanceBetween(from.latitude, from.longitude, to.latitude, to.longitude, results);
@@ -365,75 +417,47 @@ public class MapHandler implements SensorEventListener {
         }
     }
 
+    public void routes(LatLng from, LatLng to, String googleApiKey, IAsyncResponse response){
+        new PathFinder(from, to, googleApiKey, response).execute();
+    }
+
+    public void changeMapType(int type){
+        map.setMapType(type);
+    }
+    //endregion
+
+    //region Geometry
     public void addCircle(LatLng center, int radius) {
         map.addCircle(new CircleOptions()
                 .center(center)
                 .radius(radius));
     }
+    //endregion
 
-
-    public GoogleMap getMap() {
-        return map;
-    }
-
-    public HashMap<String, Marker> getMarkers() {
-        return markers;
-    }
-
-    public LatLng getMyLocation() {
-        if (myLocation != null) {
-            return new LatLng(myLocation.getLatitude(), myLocation.getLongitude());
-        }
-        return new LatLng(0, 0);
-    }
-
-    public void enableAutoLocation(Activity activity, GoogleApiClient mGoogleApiClient, int typeZoom) {
-        if (Permissions.checkPermission(activity, Permissions.GPS_FINE)
-                || Permissions.checkPermission(activity, Permissions.GPS_COARSE)) {
-
-            myLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
-
-            if (myLocation != null) {
-                map.setMyLocationEnabled(true);
-                switch (typeZoom) {
-                    case ZOOM_LOCATION:
-                        zoomToMyPosition(true, 0);
-                        break;
-                    case ZOOM_CITY:
-                        zoomToCurrentCity(activity);
-                        break;
-                }
-            }
-        }
-    }
-
-    public void setMap(GoogleMap map) {
-        this.map = map;
-    }
-
-    public void setMapStyle(MapStyleOptions mapStyleOptions) {
-        map.setMapStyle(mapStyleOptions);
-    }
-
-
-    public void addPolyline(int idColor, int width, LatLng... latLng) {
+    //region Polylines
+    public void addPolyline(int argbColor, int width, LatLng... latLng) {
         PolylineOptions options = new PolylineOptions()
-                //.color(idColor)
+                .color(argbColor)
                 .width(width)
                 .add(latLng);
         polylines.add(map.addPolyline(options));
     }
 
-    public void changePolylineStyles(int idColor, int width) {
+    public void addPolyline(int argbColor, int width, List<LatLng> latLng) {
+        PolylineOptions options = new PolylineOptions()
+                .color(argbColor)
+                .width(width)
+                .add(latLng.toArray(new LatLng[latLng.size()]));
+        polylines.add(map.addPolyline(options));
+    }
+
+    public void changePolylineStyles(int argbColor, int width) {
         for (Polyline p : polylines) {
-            //p.setColor(idColor);
+            p.setColor(argbColor);
             p.setWidth(width);
         }
     }
-
-    public KmlLayer getLayer() {
-        return layer;
-    }
+    //endregion
 
     public void updateBearing(float bearing) {
         CameraPosition camPos = CameraPosition
@@ -498,7 +522,6 @@ public class MapHandler implements SensorEventListener {
                 //updateBearing(lastDegree);
             }
         }
-
     }
 
     @Override
@@ -506,7 +529,38 @@ public class MapHandler implements SensorEventListener {
 
     }
 
+    //region Getters
+    public GoogleMap getMap() {
+        return map;
+    }
+
+    public HashMap<String, Marker> getMarkers() {
+        return markers;
+    }
+
+    public LatLng getMyLocation() {
+        if (myLocation != null) {
+            return new LatLng(myLocation.getLatitude(), myLocation.getLongitude());
+        }
+        return new LatLng(0, 0);
+    }
+
+    public KmlLayer getLayer() {
+        return layer;
+    }
+
     public boolean isNavigating() {
         return navigating;
     }
+    //endregion
+
+    //region Setters
+    public void setMap(GoogleMap map) {
+        this.map = map;
+    }
+
+    public void setMapStyle(MapStyleOptions mapStyleOptions) {
+        map.setMapStyle(mapStyleOptions);
+    }
+    //endregion
 }
