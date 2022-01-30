@@ -54,36 +54,36 @@ dependencies {
 }
 
 apply plugin: 'com.android.library'
-
-ext {
-    bintrayRepo = 'MillennialApps'
-    bintrayName = 'Utils'
-
-    publishedGroupId = 'co.com.millennialapps'
-    libraryName = 'MillennialApps'
-    artifact = 'utils'
-
-    libraryDescription = 'Library of Utils for MillennialApps'
-
-    siteUrl = 'https://github.com/erickvelasco11/MillennialAppsUtils'
-    gitUrl = 'https://github.com/erickvelasco11/MillennialAppsUtils.git'
-
-    libraryVersion = '0.38.190'
-
-    developerId = 'erickvelasco11'
-    developerName = 'Erick Velasco'
-    developerEmail = 'erickvelasco11@gmail.com'
-
-    licenseName = 'The Apache Software License, Version 2.0'
-    licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-    allLicenses = ["Apache-2.0"]
-}
-
-//Add these lines to publish library to bintray. This is the readymade scripts made by github user nuuneoi to make uploading to bintray easy.
-//Place it at the end of the file
-apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/installv1.gradle'
-apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/bintrayv1.gradle'
-
-//For publish on Bintray use
-// gradlew install
-// gradlew bintrayUpload
+//
+//ext {
+//    bintrayRepo = 'MillennialApps'
+//    bintrayName = 'Utils'
+//
+//    publishedGroupId = 'co.com.millennialapps'
+//    libraryName = 'MillennialApps'
+//    artifact = 'utils'
+//
+//    libraryDescription = 'Library of Utils for MillennialApps'
+//
+//    siteUrl = 'https://github.com/erickvelasco11/MillennialAppsUtils'
+//    gitUrl = 'https://github.com/erickvelasco11/MillennialAppsUtils.git'
+//
+//    libraryVersion = '0.38.190'
+//
+//    developerId = 'erickvelasco11'
+//    developerName = 'Erick Velasco'
+//    developerEmail = 'erickvelasco11@gmail.com'
+//
+//    licenseName = 'The Apache Software License, Version 2.0'
+//    licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+//    allLicenses = ["Apache-2.0"]
+//}
+//
+////Add these lines to publish library to bintray. This is the readymade scripts made by github user nuuneoi to make uploading to bintray easy.
+////Place it at the end of the file
+//apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/installv1.gradle'
+//apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/bintrayv1.gradle'
+//
+////For publish on Bintray use
+//// gradlew install
+//// gradlew bintrayUpload

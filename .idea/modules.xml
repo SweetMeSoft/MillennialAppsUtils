@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/MillennialAppsUtils.iml" filepath="$PROJECT_DIR$/MillennialAppsUtils.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/utils/utils.iml" filepath="$PROJECT_DIR$/utils/utils.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/MillennialAppsUtils.iml" filepath="$PROJECT_DIR$/.idea/modules/MillennialAppsUtils.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/MillennialAppsUtils.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/MillennialAppsUtils.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/utils/MillennialAppsUtils.utils.iml" filepath="$PROJECT_DIR$/.idea/modules/utils/MillennialAppsUtils.utils.iml" />
     </modules>
   </component>
 </project>
